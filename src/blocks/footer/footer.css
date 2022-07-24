@@ -1,0 +1,34 @@
+.footer{
+  display: flex;
+  margin: 0 auto;
+  max-width: 880px;
+  padding-top: 67px;
+  padding-bottom: 60px;
+}
+@media screen and (max-width: 901px) {
+  .footer {
+   width: 90vw;
+  }
+}
+@media screen and (max-width: 768px) {
+  .footer {
+   width: 85vw;
+  }
+}
+@media screen and (max-width: 499px) {
+  .footer {
+   width: 87vw;
+  }
+}
+@media screen and (max-width: 425px) {
+  .footer {
+  width: 85vw;
+   padding-top: 48px;
+   padding-bottom: 36px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .footer {
+  width: 88.125vw;
+  }
+}

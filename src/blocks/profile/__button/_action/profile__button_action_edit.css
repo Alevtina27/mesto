@@ -1,0 +1,28 @@
+.profile__button_action_edit{
+  width: 24px;
+  height: 24px;
+  background-image: url(../../../../images/Edit-Button.svg);
+  border: 1px solid #fff;
+  margin: 0;
+  margin-left: 18px;
+  margin-top: 15px;
+  grid-column: 2;
+}
+.profile__button_action_edit:hover{
+  opacity: .6;
+  cursor: pointer;
+}
+.profile__button_action_edit:focus{
+  opacity: .6;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 656px) {
+  .profile__button_action_edit {
+   width: 18px;
+   height: 18px;
+    display: flex;
+    margin-top: 8px;
+    margin-left: 10px;
+  }
+}

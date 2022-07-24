@@ -1,0 +1,32 @@
+.cards__caption{
+  position: absolute;
+  width: 87.30%;
+  margin-bottom: 31px;
+  padding-left: 21px;
+  align-self: end;
+  display: flex;
+  justify-content: space-between;
+  cursor: default;
+}
+@media screen and (max-width: 900px) {
+  .cards__caption {
+    margin-bottom: 25px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .cards__caption {
+    padding-left: 15px;
+    margin-bottom: 24px;
+  }
+}
+@media screen and (max-width: 499px) {
+  .cards__caption {
+    margin-bottom: 30px;
+    padding-left: 21px;
+  }
+}
+@media screen and (max-width: 416px) {
+  .cards__caption {
+    margin-bottom: 31px;
+  }
+}

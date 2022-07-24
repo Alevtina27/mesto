@@ -1,0 +1,38 @@
+.profile__info{
+  display: grid;
+  max-width: 336px;
+  padding-top: 22px;
+  padding-bottom: 25px;
+  padding-left: 30px;
+  cursor: default;
+}
+@media screen and (max-width: 805px) {
+  .profile__info {
+  padding-left: 20px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .profile__info {
+    width: 95%;
+   margin: 0 auto;
+   display: flex;
+  justify-content: flex-start;
+  padding-bottom: 0;
+  }
+}
+@media screen and (max-width: 720px) {
+  .profile__info {
+    width: 100%;
+    padding-left: 0;
+  }
+}
+@media screen and (max-width: 656px) {
+  .profile__info {
+   justify-content: center;
+  }
+}
+@media screen and (max-width: 338px) {
+  .profile__info {
+    justify-content: end;
+  }
+}
