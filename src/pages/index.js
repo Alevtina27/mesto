@@ -24,34 +24,18 @@ import {
   settings,
 } from "../scripts/utils/constants.js";
 
-
-/**const handleCardClick = (name, link) => {
-  popupOpenedImage.open(name, link);
-};*/
-
 /**Validation*/
 const validatorEditForm = new FormValidator(formElementEdit, settings);
 
 const validatorAddForm = new FormValidator(formElementAdd, settings);
 
-
-/*const createCard = (data) => {
-  const card = new Card(data, "#element-template", handleCardClick);
-  const cardElement = card.generateCard();
-  return cardElement;
-};*/
-
-/*const cardsSection = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      cardsSection.addItem(createCard(item));
-    },
-  },
-  elementContainer,
-);*/
+/**create cards */
 const createCard = (card) => {
-  const newCard = new Card(card, "#element-template", handleCardClick).generateCard();
+  const newCard = new Card(
+    card,
+    "#element-template",
+    handleCardClick
+  ).generateCard();
   return newCard;
 };
 
@@ -63,44 +47,30 @@ const cardsSection = new Section(
       cardsSection.addItem(cardItem);
     },
   },
-  elementContainer,
+  elementContainer
 );
 
+/**forms */
 const profileInfo = new UserInfo({
   userName: nameElement,
   infoStatus: infoElement,
 });
 
-/*const handleAddCardFormSubmit = (data) => {
+const popupAddPlace = new PopupWithForm(popupAddCard, (data) => {
   cardsSection.addItem(createCard(data));
-  popupAddPlace.close();
-};*/
+});
 
-
-/*const handleProfileEditFormSubmit = (data) => {
+const popupEditInfo = new PopupWithForm(popupEdit, (data) => {
   profileInfo.setUserInfo(data);
-  popupEditInfo.close();
-};*/
-
-const popupAddPlace = new PopupWithForm(popupAddCard,
-  (data) => {
-  cardsSection.addItem(createCard(data));
-  }
-);
-
-const popupEditInfo = new PopupWithForm(popupEdit,
-  (data) => {
-  profileInfo.setUserInfo(data);
-  }
-);
+});
 const popupOpenedImage = new PopupWithImage(popupImage);
 
-
-function handleCardClick(evt){
+/**open big picture */
+function handleCardClick(evt) {
   popupOpenedImage.open(evt.target);
-};
+}
 
-
+/**listeners */
 validatorEditForm.enableValidation();
 validatorAddForm.enableValidation();
 cardsSection.renderItems();
@@ -108,10 +78,9 @@ popupEditInfo.setEventListeners();
 popupAddPlace.setEventListeners();
 popupOpenedImage.setEventListeners();
 
-/**event handlers */
 buttonEdit.addEventListener("click", () => {
   popupEditInfo.open();
-  const {userName, infoStatus} = profileInfo.getUserInfo();
+  const { userName, infoStatus } = profileInfo.getUserInfo();
   inputName.value = userName;
   inputAbout.value = infoStatus;
   validatorEditForm.clearValidation();
@@ -121,4 +90,3 @@ buttonAdd.addEventListener("click", () => {
   popupAddPlace.open();
   validatorAddForm.clearValidation();
 });
-

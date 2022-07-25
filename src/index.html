@@ -9,7 +9,11 @@
   <body>
     <div class="page">
       <header class="header">
-        <img src="<%=require('./images/Vector.svg')%>" alt="логотип" class="header__logo" />
+        <img
+          src="<%=require('./images/Vector.svg')%>"
+          alt="логотип"
+          class="header__logo"
+        />
       </header>
       <main class="content">
         <section class="profile">
@@ -81,7 +85,12 @@
               maxlength="200"
             />
             <span class="popup__input-error input-about-error"></span>
-            <button class="button popup__button" id="submitEdit" name="submitEdit" type="submit">
+            <button
+              class="button popup__button"
+              id="submitEdit"
+              name="submitEdit"
+              type="submit"
+            >
               Сохранить
             </button>
           </form>
@@ -104,7 +113,7 @@
               type="text"
               id="input-title"
               class="popup__input popup__input_field_title"
-              name="input-title"
+              name="name"
               placeholder="Название"
               minlength="2"
               maxlength="30"
@@ -116,11 +125,16 @@
               id="input-url"
               class="popup__input popup__input_field_link"
               placeholder="Ссылка на картинку"
-              name="input-url"
+              name="link"
               required
             />
             <span class="popup__input-error input-url-error"></span>
-            <button class="button popup__button" id="submitAdd" name="submitAdd" type="submit">
+            <button
+              class="button popup__button"
+              id="submitAdd"
+              name="submitAdd"
+              type="submit"
+            >
               Создать
             </button>
           </form>
@@ -134,7 +148,7 @@
             aria-label="close-popupImage"
           ></button>
           <figure class="popup__figure">
-            <img class="popup__image" src="#" alt=""  />
+            <img class="popup__image" src="#" alt="" />
             <figcaption class="popup__caption"></figcaption>
           </figure>
         </div>
