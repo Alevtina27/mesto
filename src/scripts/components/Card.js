@@ -1,10 +1,11 @@
 export default class Card {
-  constructor(data, cardSelector, handleCardClick, handleBinClick) {
+  constructor(data, cardSelector, handleCardClick, handleBinClick, handleFormReset) {
     this._link = data.link;
     this._name = data.name;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleBinClick = handleBinClick;
+    this._handleFormReset = handleFormReset;
   }
   _getTemplate() {
     const cardElement = document
@@ -22,7 +23,6 @@ export default class Card {
 
     this._photoElement = this._element.querySelector(".cards__photo");
     this._titleElement = this._element.querySelector(".cards__title");
-    this._deleteElement = this._element.querySelector('.cards__delete')
 
     this._photoElement.src = this._link;
     this._photoElement.alt = this._name;
@@ -35,11 +35,12 @@ export default class Card {
   }
 
   _setEventListeners() {
+    this._deleteBtn = this._element.querySelector(".cards__delete");
     this._photoElement.addEventListener("click", this._handleCardClick);
-    this._deleteElement.addEventListener("click", this._handleBinClick);
+    this._deleteBtn.addEventListener("click", this._handleBinClick);
 
     this._likeBtn = this._element.querySelector(".cards__like");
-    this._deleteBtn = this._element.querySelector(".cards__delete");
+
 
     this._likeBtn.addEventListener("click", () => {
       this._likeCard();

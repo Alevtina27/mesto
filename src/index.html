@@ -153,6 +153,39 @@
           </figure>
         </div>
       </div>
+      <div class="popup popup_type_avatar">
+        <div class="popup__avatar-container">
+          <button
+          type="reset"
+          aria-label="close-popup"
+          class="popup__close"
+        ></button>
+        <form class="popup__input-container popup__input-container_avatar"
+        name="avatarForm"
+        novalidate>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <input
+          type="url"
+          id="input-avatarUrl"
+          class="popup__input popup__input_field_link"
+          placeholder="Ссылка на картинку"
+          name="avatarLink"
+          required
+        />
+        <span class="popup__input-error input-url-error"></span>
+        <button
+          class="button popup__button"
+          id="submitAvatar"
+          name="submitAvatar"
+          type="submit"
+        >
+          Создать
+        </button>
+      </form>
+        </div>
+      </div>
+
+
       <div class="popup popup_type_delete">
         <div class="popup__delete-container">
           <button

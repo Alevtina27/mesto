@@ -10,3 +10,10 @@
     margin: 0 auto;
   }
 }
+.profile__image:hover{
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: .8;
+  cursor: url(../../../images/Cursor.svg), auto;
+  transform: scale(1.1);
+  transition: all 0.3s linear;
+}

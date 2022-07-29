@@ -63,6 +63,7 @@ export const popupBigImage = document.querySelector(".popup__image");
 
 export const popupRemoveCard = document.querySelector('.popup_type_delete');
 export const buttonDelete = document.querySelector('.cards__delete');
+export const resetDelete = document.querySelector('#resetDelete')
 
 
 export const settings = {

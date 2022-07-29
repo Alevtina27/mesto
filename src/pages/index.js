@@ -18,6 +18,7 @@ import {
   popupAddCard,
   buttonAdd,
   buttonDelete,
+  resetDelete,
   popupRemoveCard,
   formElementEdit,
   formElementAdd,
@@ -38,7 +39,7 @@ const createCard = (card) => {
     card,
     "#element-template",
     handleCardClick,
-    handleBinClick
+    handleBinClick,
   ).generateCard();
   return newCard;
 };

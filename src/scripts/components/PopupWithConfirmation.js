@@ -6,11 +6,12 @@ export default class PopupWithConfirmation extends Popup {
     this._handleFormReset = handleFormReset;
     this._formDelete = this._popup.querySelector(".popup__card-delete");
   }
+
   setEventListeners() {
     super.setEventListeners();
     this._formDelete.addEventListener("reset", (evt) => {
       evt.preventDefault();
-      this._handleFormReset();
+      //this._handleFormReset(this._deleteCard());
       this.close();
     });
   }
