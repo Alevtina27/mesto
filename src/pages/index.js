@@ -5,6 +5,7 @@ import FormValidator from "../scripts/components/FormValidator.js";
 import Section from "../scripts/components/Section.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
+import PopupWithConfirmation from "../scripts/components/PopupWithConfirmation";
 import UserInfo from "../scripts/components/UserInfo.js";
 
 import {
@@ -16,6 +17,8 @@ import {
   elementContainer,
   popupAddCard,
   buttonAdd,
+  buttonDelete,
+  popupRemoveCard,
   formElementEdit,
   formElementAdd,
   inputName,
@@ -34,7 +37,8 @@ const createCard = (card) => {
   const newCard = new Card(
     card,
     "#element-template",
-    handleCardClick
+    handleCardClick,
+    handleBinClick
   ).generateCard();
   return newCard;
 };
@@ -65,10 +69,17 @@ const popupEditInfo = new PopupWithForm(popupEdit, (data) => {
 });
 const popupOpenedImage = new PopupWithImage(popupImage);
 
+const popupDeleteCard = new PopupWithConfirmation(popupRemoveCard);
+
 /**open big picture */
 function handleCardClick(evt) {
   popupOpenedImage.open(evt.target);
 }
+
+function handleBinClick(evt) {
+  popupDeleteCard.open(evt.target);
+}
+
 
 /**listeners */
 validatorEditForm.enableValidation();
@@ -77,6 +88,7 @@ cardsSection.renderItems();
 popupEditInfo.setEventListeners();
 popupAddPlace.setEventListeners();
 popupOpenedImage.setEventListeners();
+popupDeleteCard.setEventListeners();
 
 buttonEdit.addEventListener("click", () => {
   popupEditInfo.open();
@@ -90,3 +102,7 @@ buttonAdd.addEventListener("click", () => {
   popupAddPlace.open();
   validatorAddForm.clearValidation();
 });
+
+/**buttonDelete.addEventListener("click", () => {
+  popupDeleteCard.open();
+});*/

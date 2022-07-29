@@ -61,6 +61,10 @@ export const popupImage = document.querySelector(".popup_type_image");
 export const popupName = document.querySelector(".popup__caption");
 export const popupBigImage = document.querySelector(".popup__image");
 
+export const popupRemoveCard = document.querySelector('.popup_type_delete');
+export const buttonDelete = document.querySelector('.cards__delete');
+
+
 export const settings = {
   formSelector: ".popup__input-container",
   inputSelector: ".popup__input",

@@ -1,0 +1,15 @@
+.popup__card-delete{
+  max-width: 358px;
+  min-height: 110px;
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+justify-content: space-between;
+}
+@media screen and (max-width: 470px) {
+  .popup__card-delete {
+    width: 84.5%;
+  }
+}
