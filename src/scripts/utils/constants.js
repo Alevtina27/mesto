@@ -54,6 +54,9 @@ export const formElementAdd = popupAddCard.querySelector(
   ".popup__input-container_add"
 );
 
+export const popupAvatar = document.querySelector('.popup_type_avatar')
+export const formElementAvatar = popupAvatar.querySelector('.popup__input-container_avatar')
+
 export const inputName = document.querySelector(".popup__input_field_name");
 export const inputAbout = document.querySelector(".popup__input_field_about");
 
@@ -64,6 +67,8 @@ export const popupBigImage = document.querySelector(".popup__image");
 export const popupRemoveCard = document.querySelector('.popup_type_delete');
 export const buttonDelete = document.querySelector('.cards__delete');
 export const resetDelete = document.querySelector('#resetDelete')
+
+export const profileImage = document.querySelector('.profile__image')
 
 
 export const settings = {

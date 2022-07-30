@@ -12,6 +12,7 @@ import {
   initialCards,
   buttonEdit,
   popupEdit,
+  popupAvatar,
   nameElement,
   infoElement,
   elementContainer,
@@ -22,6 +23,8 @@ import {
   popupRemoveCard,
   formElementEdit,
   formElementAdd,
+  formElementAvatar,
+  profileImage,
   inputName,
   inputAbout,
   popupImage,
@@ -32,6 +35,8 @@ import {
 const validatorEditForm = new FormValidator(formElementEdit, settings);
 
 const validatorAddForm = new FormValidator(formElementAdd, settings);
+
+const validatorAvatarForm = new FormValidator(formElementAvatar, settings)
 
 /**create cards */
 const createCard = (card) => {
@@ -59,7 +64,9 @@ const cardsSection = new Section(
 const profileInfo = new UserInfo({
   userName: nameElement,
   infoStatus: infoElement,
+  profileAvatar: profileImage,
 });
+
 
 const popupAddPlace = new PopupWithForm(popupAddCard, (data) => {
   cardsSection.addItem(createCard(data));
@@ -71,6 +78,10 @@ const popupEditInfo = new PopupWithForm(popupEdit, (data) => {
 const popupOpenedImage = new PopupWithImage(popupImage);
 
 const popupDeleteCard = new PopupWithConfirmation(popupRemoveCard);
+
+const popupChangeAvatar = new PopupWithForm(popupAvatar,  (data) => {
+  profileInfo.setUserInfo(data);
+});
 
 /**open big picture */
 function handleCardClick(evt) {
@@ -85,11 +96,13 @@ function handleBinClick(evt) {
 /**listeners */
 validatorEditForm.enableValidation();
 validatorAddForm.enableValidation();
+validatorAvatarForm.enableValidation();
 cardsSection.renderItems();
 popupEditInfo.setEventListeners();
 popupAddPlace.setEventListeners();
 popupOpenedImage.setEventListeners();
 popupDeleteCard.setEventListeners();
+popupChangeAvatar.setEventListeners();
 
 buttonEdit.addEventListener("click", () => {
   popupEditInfo.open();
@@ -104,6 +117,8 @@ buttonAdd.addEventListener("click", () => {
   validatorAddForm.clearValidation();
 });
 
-/**buttonDelete.addEventListener("click", () => {
-  popupDeleteCard.open();
-});*/
+profileImage.addEventListener('click', () =>{
+  popupChangeAvatar.open();
+  validatorAvatarForm.enableValidation();
+}
+)

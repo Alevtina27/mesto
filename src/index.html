@@ -154,7 +154,7 @@
         </div>
       </div>
       <div class="popup popup_type_avatar">
-        <div class="popup__avatar-container">
+        <div class="popup__container popup__container_avatar">
           <button
           type="reset"
           aria-label="close-popup"
@@ -166,20 +166,20 @@
         <h2 class="popup__title">Обновить аватар</h2>
         <input
           type="url"
-          id="input-avatarUrl"
-          class="popup__input popup__input_field_link"
+          id="input-link"
+          class="popup__input popup__input_field_link-avatar"
           placeholder="Ссылка на картинку"
-          name="avatarLink"
+          name="profileAvatar"
           required
         />
-        <span class="popup__input-error input-url-error"></span>
+        <span id="avatar-error" class="popup__input-error input-link-error"></span>
         <button
           class="button popup__button"
           id="submitAvatar"
           name="submitAvatar"
           type="submit"
         >
-          Создать
+          Сохранить
         </button>
       </form>
         </div>
