@@ -4,7 +4,7 @@ export default class Card {
     this._name = data.name;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    //this._handleBinClick = handleBinClick;
+    this._handleBinClick = handleBinClick;
     this._handleFormReset = handleFormReset;
   }
   _getTemplate() {
@@ -35,9 +35,9 @@ export default class Card {
   }
 
   _setEventListeners() {
-    //this._deleteBtn = this._element.querySelector(".cards__delete");
+    this._deleteBtn = this._element.querySelector(".cards__delete");
     this._photoElement.addEventListener("click", this._handleCardClick);
-    //this._deleteBtn.addEventListener("click", this._handleBinClick);
+    this._deleteBtn.addEventListener("click", this._handleBinClick);
 
     this._likeBtn = this._element.querySelector(".cards__like");
 
@@ -46,16 +46,17 @@ export default class Card {
       this._likeCard();
     });
 
-    /**this._deleteBtn.addEventListener("click", () => {
-      this._deleteCard();
-    });*/
+    this._deleteBtn.addEventListener("click", () => {
+      this._handleFormReset(this._element)
+      //this._deleteCard();
+    });
   }
   _likeCard() {
     this._likeBtn.classList.toggle("cards__like_active");
   }
 
-  /**_deleteCard() {
+  _deleteCard() {
     this._element.remove();
     this._element = null;
-  }*/
+  }
 }

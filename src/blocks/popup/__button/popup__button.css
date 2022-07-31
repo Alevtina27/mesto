@@ -21,6 +21,7 @@
   pointer-events: none;
   user-select: none;
 }
+
 @media screen and (max-width: 470px) {
   .popup__button {
     height: 46px;

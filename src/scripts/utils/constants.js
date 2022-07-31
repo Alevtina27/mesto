@@ -70,6 +70,8 @@ export const resetDelete = document.querySelector('#resetDelete')
 
 export const profileImage = document.querySelector('.profile__image')
 
+export const cardsElements = document.querySelector('.cards__element')
+
 
 export const settings = {
   formSelector: ".popup__input-container",

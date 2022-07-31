@@ -1,0 +1,12 @@
+.cards__counter{
+  display: block;
+  justify-content: center;
+  max-width: 10px;
+  min-height: 13px;
+  font-size: 13px;
+  font-weight: 400;
+  align-content: center;
+  align-self: center;
+  padding-top: 2px;
+
+}

@@ -5,10 +5,11 @@ import FormValidator from "../scripts/components/FormValidator.js";
 import Section from "../scripts/components/Section.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
-import PopupWithConfirmation from "../scripts/components/PopupWithConfirmation";
 import UserInfo from "../scripts/components/UserInfo.js";
+import PopupWithConfirmation from "../scripts/components/PopupWithConfirmation";
 
 import {
+  cardsElements,
   initialCards,
   buttonEdit,
   popupEdit,
@@ -45,6 +46,7 @@ const createCard = (card) => {
     "#element-template",
     handleCardClick,
     handleBinClick,
+    handleFormReset,
   ).generateCard();
   return newCard;
 };
@@ -68,11 +70,14 @@ const profileInfo = new UserInfo({
 });
 
 
+
 const popupAddPlace = new PopupWithForm(popupAddCard, (data) => {
+  popupAddPlace.loading(true)
   cardsSection.addItem(createCard(data));
 });
 
 const popupEditInfo = new PopupWithForm(popupEdit, (data) => {
+  popupEditInfo.loading(true)
   profileInfo.setUserInfo(data);
 });
 const popupOpenedImage = new PopupWithImage(popupImage);
@@ -80,6 +85,7 @@ const popupOpenedImage = new PopupWithImage(popupImage);
 const popupDeleteCard = new PopupWithConfirmation(popupRemoveCard);
 
 const popupChangeAvatar = new PopupWithForm(popupAvatar,  (data) => {
+  popupChangeAvatar.loading(true)
   profileInfo.setUserInfo(data);
 });
 
@@ -91,6 +97,12 @@ function handleCardClick(evt) {
 function handleBinClick(evt) {
   popupDeleteCard.open(evt.target);
 }
+
+function handleFormReset(cardId){
+  popupDeleteCard.submitCallback(() => {
+    deleteCard(cardId)
+  })
+};
 
 
 /**listeners */
