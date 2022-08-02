@@ -8,7 +8,7 @@ export default class UserInfo {
     this._userInfo = {
       userName: this._userName.textContent,
       infoStatus: this._infoStatus.textContent,
-      profileAvatar: this._profileAvatar.src,
+      profileAvatar: this._profileAvatar.src
     };
     return this._userInfo;
   }

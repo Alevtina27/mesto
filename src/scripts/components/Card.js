@@ -48,7 +48,6 @@ export default class Card {
 
     this._deleteBtn.addEventListener("click", () => {
       this._handleFormReset(this._element)
-      //this._deleteCard();
     });
   }
   _likeCard() {

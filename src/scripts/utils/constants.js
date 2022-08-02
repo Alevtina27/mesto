@@ -59,6 +59,7 @@ export const formElementAvatar = popupAvatar.querySelector('.popup__input-contai
 
 export const inputName = document.querySelector(".popup__input_field_name");
 export const inputAbout = document.querySelector(".popup__input_field_about");
+export const inputAvatar = document.querySelector('.popup__input_field_link-avatar');
 
 export const popupImage = document.querySelector(".popup_type_image");
 export const popupName = document.querySelector(".popup__caption");
@@ -80,4 +81,7 @@ export const settings = {
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__input-error_type_visible",
+
+  host: 'http://localhost:8080/',
+  token: 'f33435a7-771f-4f87-9cc8-2dc2b5e06d11',
 };

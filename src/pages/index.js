@@ -1,5 +1,5 @@
 import "./index.css";
-
+import Api from '../scripts/components/Api.js';
 import Card from "../scripts/components/Card.js";
 import FormValidator from "../scripts/components/FormValidator.js";
 import Section from "../scripts/components/Section.js";
@@ -28,9 +28,25 @@ import {
   profileImage,
   inputName,
   inputAbout,
+  inputAvatar,
   popupImage,
   settings,
 } from "../scripts/utils/constants.js";
+
+const api = new Api(settings.host, settings.token);
+
+Promise.all([
+	api.getInitialCards(),
+	api.getUserInfo(),
+])
+	.then(([unitialCards, newData])=>{
+    profileInfo.setUserInfo(newData);
+		cardsSection.render(unitialCards);
+	})
+	.catch((err)=>{
+		console.log(err);
+	})
+
 
 /**Validation*/
 const validatorEditForm = new FormValidator(formElementEdit, settings);
@@ -69,8 +85,6 @@ const profileInfo = new UserInfo({
   profileAvatar: profileImage,
 });
 
-
-
 const popupAddPlace = new PopupWithForm(popupAddCard, (data) => {
   popupAddPlace.loading(true)
   cardsSection.addItem(createCard(data));
@@ -98,8 +112,8 @@ function handleBinClick(evt) {
   popupDeleteCard.open(evt.target);
 }
 
-function handleFormReset(cardId){
-  popupDeleteCard.submitCallback(() => {
+function handleFormReset(){
+  popupDeleteCard.submitCallback((cardId) => {
     deleteCard(cardId)
   })
 };
@@ -118,7 +132,7 @@ popupChangeAvatar.setEventListeners();
 
 buttonEdit.addEventListener("click", () => {
   popupEditInfo.open();
-  const { userName, infoStatus } = profileInfo.getUserInfo();
+  const { userName, infoStatus} = profileInfo.getUserInfo();
   inputName.value = userName;
   inputAbout.value = infoStatus;
   validatorEditForm.clearValidation();
@@ -127,10 +141,11 @@ buttonEdit.addEventListener("click", () => {
 buttonAdd.addEventListener("click", () => {
   popupAddPlace.open();
   validatorAddForm.clearValidation();
+
 });
 
 profileImage.addEventListener('click', () =>{
   popupChangeAvatar.open();
-  validatorAvatarForm.enableValidation();
+  validatorAvatarForm.clearValidation();
 }
 )
