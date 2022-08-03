@@ -7,7 +7,7 @@ export default class Card {
     this._userId = userId;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    this._handleBinClick = handleBinClick;
+    //this._handleBinClick = handleBinClick;
     this._handleFormReset = handleFormReset;
     this._handleAddLike = handleAddLike;
     this._handleDeleteLike = handleDeleteLike;
@@ -46,7 +46,7 @@ export default class Card {
   _setEventListeners() {
     this._deleteBtn = this._element.querySelector(".cards__delete");
     this._photoElement.addEventListener("click", this._handleCardClick);
-    this._deleteBtn.addEventListener("click", this._handleBinClick);
+    //this._deleteBtn.addEventListener("click", this._handleBinClick);
 
     //this._likeBtn = this._element.querySelector(".cards__like");
 
@@ -61,7 +61,7 @@ export default class Card {
 
 
     this._deleteBtn.addEventListener("click", () => {
-      this._handleFormReset(this._cardSelector.id)
+      this._handleFormReset(this._cardId)
     });
     //this._deleteBtn.addEventListener("click", this._deleteCard);
   }

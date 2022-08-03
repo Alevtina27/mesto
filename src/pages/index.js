@@ -34,8 +34,10 @@ import {
   settings,
 } from "../scripts/utils/constants.js";
 
+let userId;
+
 const api = new Api({
-host: 'https://mesto.nomoreparties.co/v1/cohort-47/cards',
+host: 'https://mesto.nomoreparties.co/v1/cohort-47/',
 headers: {
   authorization: 'f33435a7-771f-4f87-9cc8-2dc2b5e06d11',
 'Content-Type': 'application/json'
@@ -46,9 +48,10 @@ Promise.all([
 	api.getInitialCards(),
 	api.getUserInfo(),
 ])
-	.then(([unitialCards, newData])=>{
-    profileInfo.setUserInfo(newData);
-		cardsSection.render(unitialCards);
+	.then(([unitialCards, user])=>{
+    userId = user._id;
+    profileInfo.setUserInfo(user);
+		cardsSection.renderItems(unitialCards);
 	})
 	.catch((err)=>{
 		console.log(err);
@@ -63,15 +66,16 @@ const validatorAddForm = new FormValidator(formElementAdd, settings);
 const validatorAvatarForm = new FormValidator(formElementAvatar, settings)
 
 /**create cards */
-const createCard = (card) => {
+const createCard = (data) => {
   const newCard = new Card(
-    card,
+    data,
     "#element-template",
+    userId,
     handleCardClick,
     //handleBinClick,
     handleFormReset,
     handleAddLike,
-  ).generateCard();
+).generateCard();
   return newCard;
 };
 
@@ -146,19 +150,24 @@ const popupChangeAvatar = new PopupWithForm(popupAvatar,  (data) => {
 });
 
 /**open big picture */
-function handleCardClick(evt) {
+/**function handleCardClick(evt) {
   popupOpenedImage.open(evt.target);
+}*/
+
+function handleCardClick(name, link) {
+  popupOpenedImage.open(name, link);
 }
 
-/**function handleBinClick(evt) {
+
+/*function handleBinClick(evt) {
   popupDeleteCard.open(evt.target);
 }*/
 
 
-function handleFormReset(){
+function handleFormReset(cardId){
   popupDeleteCard.open();
-  popupDeleteCard.submitCallback((card) => {
-    api.deleteCard(card)
+  popupDeleteCard.submitCallback(() => {
+    api.deleteCard(cardId)
     .then(() => {
       popupDeleteCard.close();
       newCard.deleteCard();
@@ -210,3 +219,22 @@ profileImage.addEventListener('click', () =>{
   validatorAvatarForm.clearValidation();
 }
 )
+
+
+//по продленке
+/**
+function createCard (data){
+  const newCard = new Card(data, userId);
+}
+
+function handleSubmitCard(data){
+  api.createCard(data)
+  .then(res => {
+    section.createCard(card)
+  })
+  .catch(err => console.log(err));
+  .finally(() => popup.loading(false);)
+}
+
+
+*/
