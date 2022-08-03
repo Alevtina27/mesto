@@ -1,21 +1,21 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithConfirmation extends Popup {
-  constructor(popupSelector) {
+  constructor(popupSelector, handleRemoveCard) {
     super(popupSelector);
+    this._handleRemoveCard =handleRemoveCard;
     this._formDelete = this._popup.querySelector(".popup__card-delete");
   }
 
-  submitCallback(remove){
-    this._handleSubmit = remove;
+  submitCallback(card){
+    this._card = card;
 }
 
   setEventListeners() {
     super.setEventListeners();
-    this._formDelete.addEventListener("click", (evt) => {
+    this._formDelete.addEventListener("reset", (evt) => {
       evt.preventDefault();
-      this._handleSubmit();
-      this.close();
+      this._handleRemoveCard(this._card);
     });
   }
   close() {

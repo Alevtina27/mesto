@@ -82,6 +82,5 @@ export const settings = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__input-error_type_visible",
 
-  host: 'http://localhost:8080/',
-  token: 'f33435a7-771f-4f87-9cc8-2dc2b5e06d11',
+ 
 };

@@ -6,6 +6,7 @@ import Section from "../scripts/components/Section.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import UserInfo from "../scripts/components/UserInfo.js";
+
 import PopupWithConfirmation from "../scripts/components/PopupWithConfirmation";
 
 import {
@@ -33,7 +34,13 @@ import {
   settings,
 } from "../scripts/utils/constants.js";
 
-const api = new Api(settings.host, settings.token);
+const api = new Api({
+host: 'https://mesto.nomoreparties.co/v1/cohort-47/cards',
+headers: {
+  authorization: 'f33435a7-771f-4f87-9cc8-2dc2b5e06d11',
+'Content-Type': 'application/json'
+},
+});
 
 Promise.all([
 	api.getInitialCards(),
@@ -61,8 +68,9 @@ const createCard = (card) => {
     card,
     "#element-template",
     handleCardClick,
-    handleBinClick,
+    //handleBinClick,
     handleFormReset,
+    handleAddLike,
   ).generateCard();
   return newCard;
 };
@@ -88,12 +96,35 @@ const profileInfo = new UserInfo({
 const popupAddPlace = new PopupWithForm(popupAddCard, (data) => {
   popupAddPlace.loading(true)
   cardsSection.addItem(createCard(data));
+  api.addCard(data)
+  .then(() => {
+    cardsSection.addItem(createCard(data));
+    popupAddPlace.close();
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+  })
+  .finally(() => {
+    popupAddPlace.loading(false);
+  });
 });
 
 const popupEditInfo = new PopupWithForm(popupEdit, (data) => {
   popupEditInfo.loading(true)
   profileInfo.setUserInfo(data);
-});
+  api.editUserInfo(data)
+      .then((data) => {
+        profileInfo.setUserInfo(data);
+        popupEditInfo.close();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
+      .finally(() => {
+        popupEditInfo.loading(false);
+      });
+  });
+
 const popupOpenedImage = new PopupWithImage(popupImage);
 
 const popupDeleteCard = new PopupWithConfirmation(popupRemoveCard);
@@ -101,6 +132,17 @@ const popupDeleteCard = new PopupWithConfirmation(popupRemoveCard);
 const popupChangeAvatar = new PopupWithForm(popupAvatar,  (data) => {
   popupChangeAvatar.loading(true)
   profileInfo.setUserInfo(data);
+  api.changeAvatar(data)
+      .then((data) => {
+        avatar.src = data.profileAvatar;
+        popupChangeAvatar.close();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
+      .finally(() => {
+        popupChangeAvatar.loading(false);
+      });
 });
 
 /**open big picture */
@@ -108,15 +150,34 @@ function handleCardClick(evt) {
   popupOpenedImage.open(evt.target);
 }
 
-function handleBinClick(evt) {
+/**function handleBinClick(evt) {
   popupDeleteCard.open(evt.target);
-}
+}*/
+
 
 function handleFormReset(){
-  popupDeleteCard.submitCallback((cardId) => {
-    deleteCard(cardId)
+  popupDeleteCard.open();
+  popupDeleteCard.submitCallback((card) => {
+    api.deleteCard(card)
+    .then(() => {
+      popupDeleteCard.close();
+      newCard.deleteCard();
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
   })
-};
+});
+}
+
+function handleAddLike(card){
+  api.addLikes(card)
+  .then((data) => {
+    newCard.handleLikesOfCard(data)
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+})
+}
 
 
 /**listeners */
