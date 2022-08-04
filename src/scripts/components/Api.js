@@ -20,61 +20,50 @@ _getHeaders(){
 
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
-      headers: this._getHeaders(),
+      headers: this._token,
 
   })
   .then(this._getJsonOrError);
 }
 getUserInfo(){
   return fetch(`${this._url}/users/me`, {
-    headers: this._getHeaders(),
+    headers: this._token,
 
 })
 .then(this._getJsonOrError);
 }
-createCard(data){
-  return fetch(`${this._url}/cards`, {
-      method: 'POST',
-      headers: this._getHeaders(),
-      body: JSON.stringify({
-        name: data.name,
-        link: data.link
-      }),
-  })
-  .then(this._getJsonOrError)
-}
 
-/**addCard(data) {
+addCard(data) {
   return fetch(`${this._url}/cards`, {
     method: 'POST',
-    headers: this._getHeaders(),
+    headers: this._token,
     body: JSON.stringify({
       name: data.name,
       link: data.link
     })
   })
     .then(res => this._parseResponse(res));
-}*/
+}
 
-addLikes(card){
-  return fetch(`${this._url}/cards/${card}/like`, {
+addLikes(id){
+  return fetch(`${this._url}/cards/${id}/likes`, {
       method: 'PUT',
-      headers: this._getHeaders(),
+      headers: this._token,
   })
   .then(this._getJsonOrError)
 }
-removeLikes(card){
-  return fetch(`${this._url}/cards/${card}/like`, {
+removeLikes(id){
+  return fetch(`${this._url}/cards/${id}/likes`, {
       method: 'DELETE',
-      headers: this._getHeaders(),
+      headers: this._token,
   })
   .then(this._getJsonOrError)
 }
 
 editUserInfo(data) {
-  return fetch(`${this._url}/users/`, {
+  return fetch(`${this._url}/users/me`, {
     method: 'PATCH',
-    headers: this._getHeaders(),
+    headers: this._token,
     body: JSON.stringify({
       userName: data.userName,
       infoStatus: data.infoStatus
@@ -86,7 +75,7 @@ editUserInfo(data) {
 changeAvatar(data) {
   return fetch(`${this._url}/users/me/avatar`, {
     method: 'PATCH',
-    headers: this._getHeaders(),
+    headers: this._token,
     body: JSON.stringify({
       profileAvatar: data.profileAvatar
     })
@@ -94,10 +83,10 @@ changeAvatar(data) {
     .then(res => this._parseResponse(res));
 }
 
-deleteCard(card){
-  return fetch(`${this._url}/cards/${card}`, {
+removeCard(id){
+  return fetch(`${this._url}/cards/${id}`, {
       method: 'DELETE',
-      headers: this._getHeaders(),
+      headers: this._token,
   })
   .then(this._getJsonOrError)
 }

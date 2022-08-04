@@ -1,4 +1,4 @@
-export const initialCards = [
+/**export const initialCards = [
   {
     name: "Рио-де-Жанейро, Бразилия",
     link: "https://goo.su/NL9JVy5",
@@ -28,7 +28,7 @@ export const initialCards = [
     name: "Каппадокия, Турция",
     link: "https://goo.su/rLvv",
   },
-];
+];*/
 
 export const buttonEdit = document.querySelector(
   ".profile__button_action_edit"
@@ -73,6 +73,7 @@ export const profileImage = document.querySelector('.profile__image')
 
 export const cardsElements = document.querySelector('.cards__element')
 
+export const cardsLikeButton = document.querySelector('.cards__like')
 
 export const settings = {
   formSelector: ".popup__input-container",
@@ -81,6 +82,4 @@ export const settings = {
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__input-error_type_visible",
-
- 
 };
