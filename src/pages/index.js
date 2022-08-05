@@ -50,15 +50,14 @@ Promise.all([
 	api.getUserInfo(),
   api.getInitialCards(),
 ])
-	.then(([newData, unitialCards])=>{
-    userId = newData._id;
-    profileInfo.setUserInfo(newData);
+	.then(([data, unitialCards])=>{
+    userId = data._id;
+    profileInfo.setUserInfo(data);
 		cardsSection.renderItems(unitialCards);
 	})
 	.catch((err)=>{
 		console.log(err);
 	})
-
 
 /**Validation*/
 const validatorEditForm = new FormValidator(formElementEdit, settings);
@@ -72,10 +71,10 @@ function createCard (data) {
   const newCard = new Card(
     data,
     "#element-template",
+    userId,
     handleCardClick,
     handleFormReset,
     handleLikesOfCard,
-    userId,
     ()=>{
       api.addLikes(newCard._id)
         .then((cardElement)=>{
@@ -232,6 +231,7 @@ profileImage.addEventListener('click', () =>{
   validatorAvatarForm.clearValidation();
 }
 )
+
 
 
 
