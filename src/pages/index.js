@@ -50,9 +50,9 @@ Promise.all([
 	api.getUserInfo(),
   api.getInitialCards(),
 ])
-	.then(([data, unitialCards])=>{
-    userId = data._id;
-    profileInfo.setUserInfo(data);
+	.then(([user, unitialCards])=>{
+    userId = user._id;
+    profileInfo.setUserInfo(user);
 		cardsSection.renderItems(unitialCards);
 	})
 	.catch((err)=>{
@@ -71,10 +71,10 @@ function createCard (data) {
   const newCard = new Card(
     data,
     "#element-template",
-    userId,
     handleCardClick,
     handleFormReset,
     handleLikesOfCard,
+    userId,
     ()=>{
       api.addLikes(newCard._id)
         .then((cardElement)=>{
@@ -113,9 +113,9 @@ const profileInfo = new UserInfo({
 
 const popupAddPlace = new PopupWithForm(popupAddCard, (data) => {
   popupAddPlace.loading(true)
-  cardsSection.addItem(createCard(data));
+  //cardsSection.addItem(createCard(data));
   api.addCard(data)
-  .then(() => {
+  .then((data) => {
     cardsSection.addItem(createCard(data));
     popupAddPlace.close();
   })
@@ -127,11 +127,11 @@ const popupAddPlace = new PopupWithForm(popupAddCard, (data) => {
   });
 });
 
-const popupEditInfo = new PopupWithForm(popupEdit, (newData) => {
+const popupEditInfo = new PopupWithForm(popupEdit, (data) => {
   popupEditInfo.loading(true);
-  console.log(newData)
+  //console.log(newData)
   //profileInfo.setUserInfo(newData);
-  api.editUserInfo(newData)
+  api.editUserInfo(profileInfo)
       .then((newData) => {
         profileInfo.setUserInfo(newData);
         popupEditInfo.close();
@@ -152,11 +152,11 @@ const popupDeleteCard = new PopupWithConfirmation(popupRemoveCard, handleDeleteC
 
 const popupChangeAvatar = new PopupWithForm(popupAvatar,  (data) => {
   popupChangeAvatar.loading(true);
-  console.log(data)
+  //console.log(data)
   api.changeAvatar(data)
-      .then((data) => {
-        avatar.src = data.profileAvatar;
-        //profileInfo.setUserInfo(newData);
+      .then((newData) => {
+        //avatar.src = data.profileAvatar;
+        profileInfo.setUserAvatar(newData);
         popupChangeAvatar.close();
       })
       .catch((err) => {

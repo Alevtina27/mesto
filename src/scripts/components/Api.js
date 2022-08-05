@@ -2,6 +2,9 @@ export default class Api{
   constructor(options){
     this._url = options.host;
     this._token = options.headers;
+
+    this._getJsonOrError = this._getJsonOrError.bind(this);
+        this._getHeaders = this._getHeaders.bind(this);
   }
 
   _getJsonOrError(res){
@@ -42,7 +45,7 @@ addCard(data) {
       link: data.link
     })
   })
-    .then(res => this._parseResponse(res));
+    .then(this._getJsonOrError);
 }
 
 addLikes(id){
@@ -69,7 +72,7 @@ editUserInfo(data) {
       infoStatus: data.infoStatus
     })
   })
-    .then(res => this._parseResponse(res));
+    .then(this._getJsonOrError);
 }
 
 changeAvatar(data) {
@@ -80,7 +83,7 @@ changeAvatar(data) {
       profileAvatar: data.profileAvatar
     })
   })
-    .then(res => this._parseResponse(res));
+    .then(this._getJsonOrError);
 }
 
 removeCard(id){
