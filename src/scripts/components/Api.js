@@ -24,14 +24,13 @@ _getHeaders(){
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       headers: this._token,
-
   })
   .then(this._getJsonOrError);
 }
+
 getUserInfo(){
   return fetch(`${this._url}/users/me`, {
     headers: this._token,
-
 })
 .then(this._getJsonOrError);
 }
@@ -68,8 +67,8 @@ editUserInfo(data) {
     method: 'PATCH',
     headers: this._token,
     body: JSON.stringify({
-      userName: data.userName,
-      infoStatus: data.infoStatus
+      name: data.name,
+      about: data.about
     })
   })
     .then(this._getJsonOrError);
@@ -80,7 +79,7 @@ changeAvatar(data) {
     method: 'PATCH',
     headers: this._token,
     body: JSON.stringify({
-      profileAvatar: data.profileAvatar
+      avatar: data.avatar,
     })
   })
     .then(this._getJsonOrError);

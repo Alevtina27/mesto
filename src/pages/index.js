@@ -50,10 +50,11 @@ Promise.all([
 	api.getUserInfo(),
   api.getInitialCards(),
 ])
-	.then(([user, unitialCards])=>{
-    userId = user._id;
-    profileInfo.setUserInfo(user);
+	.then(([data, unitialCards])=>{
+    userId = data._id;
+    userInfo.setUserInfo(data);
 		cardsSection.renderItems(unitialCards);
+    console.log(unitialCards)
 	})
 	.catch((err)=>{
 		console.log(err);
@@ -72,11 +73,13 @@ function createCard (data) {
     data,
     "#element-template",
     handleCardClick,
-    handleFormReset,
-    handleLikesOfCard,
+    handleFormResetCard,
+    handleAddLike,
+    handleRemoveLike,
+    //handleLikesOfCard,
     userId,
-    ()=>{
-      api.addLikes(newCard._id)
+   /*() => {
+      api.addLikes(id)
         .then((cardElement)=>{
           newCard.addLike()
           newCard.lengthOfLikes(cardElement)
@@ -84,12 +87,12 @@ function createCard (data) {
       },
 
       ()=>{
-        api.removeLikes(newCard._id)
+        api.removeLikes(id)
           .then((cardElement)=>{
             newCard.removeLike()
             newCard.lengthOfLikes(cardElement)
           }).catch(err=>console.log(err))
-      }
+      }*/
 ).generateCard();
   return newCard;
 };
@@ -105,10 +108,10 @@ const cardsSection = new Section(
 );
 
 /**forms */
-const profileInfo = new UserInfo({
-  userName: nameElement,
-  infoStatus: infoElement,
-  profileAvatar: profileImage,
+const userInfo = new UserInfo({
+  name: nameElement,
+  about: infoElement,
+  avatar: profileImage,
 });
 
 const popupAddPlace = new PopupWithForm(popupAddCard, (data) => {
@@ -131,9 +134,9 @@ const popupEditInfo = new PopupWithForm(popupEdit, (data) => {
   popupEditInfo.loading(true);
   //console.log(newData)
   //profileInfo.setUserInfo(newData);
-  api.editUserInfo(profileInfo)
-      .then((newData) => {
-        profileInfo.setUserInfo(newData);
+  api.editUserInfo(data)
+      .then((data) => {
+        userInfo.setUserInfo(data);
         popupEditInfo.close();
       })
       .catch((err) => {
@@ -154,9 +157,8 @@ const popupChangeAvatar = new PopupWithForm(popupAvatar,  (data) => {
   popupChangeAvatar.loading(true);
   //console.log(data)
   api.changeAvatar(data)
-      .then((newData) => {
-        //avatar.src = data.profileAvatar;
-        profileInfo.setUserAvatar(newData);
+      .then((data) => {
+        userInfo.setUserInfo(data);
         popupChangeAvatar.close();
       })
       .catch((err) => {
@@ -176,14 +178,14 @@ function handleCardClick(name, link) {
   popupOpenedImage.open(name, link);
 }
 
-function handleFormReset(data){
-  popupDeleteCard.resetCard(data);
+function handleFormResetCard(card){
+  popupDeleteCard.resetCard(card);
 }
 
-function handleDeleteCard(card){
-    api.removeCard(newCard._id)
+function handleDeleteCard(id){
+    api.removeCard(id)
     .then(() => {
-      card.deleteCard();
+      newCard.deleteCard();
       popupDeleteCard.close();
     })
     .catch((err) => {
@@ -191,15 +193,36 @@ function handleDeleteCard(card){
   })
 }
 
-function handleLikesOfCard(id){
+
+function handleAddLike(id){
   api.addLikes(id)
-  .then((data) => {
-    newCard.handleLikesOfCard(data)
+  .then((data)=>{
+    newCard.handleLikeCard(data)
   })
   .catch((err) => {
     console.log(`Ошибка: ${err}`);
 })
 }
+
+function handleRemoveLike(id){
+  api.removeLikes(id)
+  .then((data)=>{
+    newCard.handleLikeCard(data)
+  }).catch((err) => {
+    console.log(`Ошибка: ${err}`);
+})
+}
+
+/*function handleLikesOfCard(id){
+  api.addLikes(id)
+  .then((data) => {
+    newCard.handleLikeCard(data)
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+})
+}*/
+
 
 
 /**listeners */
@@ -214,9 +237,9 @@ popupChangeAvatar.setEventListeners();
 
 buttonEdit.addEventListener("click", () => {
   popupEditInfo.open();
-  const { userName, infoStatus} = profileInfo.getUserInfo();
-  inputName.value = userName;
-  inputAbout.value = infoStatus;
+  const { name, about} = userInfo.getUserInfo();
+  inputName.value = name;
+  inputAbout.value = about;
   validatorEditForm.clearValidation();
 });
 

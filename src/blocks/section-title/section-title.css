@@ -24,11 +24,12 @@
   @media screen and (max-width: 720px) {
     .section-title {
       margin: 0;
-      text-align: start;
+      text-align:start;
     }
   }
   @media screen and (max-width: 656px) {
     .section-title {
+      text-align:center;
       font-size: 27px;
       line-height: 33px;
     }
