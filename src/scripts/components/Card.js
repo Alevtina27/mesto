@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, cardSelector, handleCardClick, handleFormResetCard, userId, handleLikesOfCard,handleAddLike, handleRemoveLike) {
+  constructor(data, cardSelector, userId, handleCardClick, handleFormResetCard, like, dislike,handleLikesOfCard,handleAddLike, handleRemoveLike) {
     this._link = data.link;
     this._name = data.name;
    this._likes = data.likes;
@@ -10,8 +10,10 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._handleFormResetCard = handleFormResetCard;
     //this._handleLikesOfCard = handleLikesOfCard;
-    this._handleAddLike = handleAddLike;
-   this._handleRemoveLike = handleRemoveLike;
+   // this._handleAddLike = handleAddLike;
+  // this._handleRemoveLike = handleRemoveLike;
+  this._plusLike = like;
+  this._nonOfLike = dislike;
     //this._handleLikesOfCard = handleLikesOfCard;
     this._ownerId = data.owner._id;
   }
@@ -56,11 +58,13 @@ export default class Card {
     //this._deleteBtn.addEventListener("click", this._handleBinClick);
 
    this._likeBtn.addEventListener('click', () => {
-      if (this._likeBtn.classList.contains('cards__like_active')) {
-        this._handleAddLike(this._cardId);
+    this._likeBtn.classList.toggle('cards__like_active')
+   // this._counter.value = parseInt(this._counter.value) + 1;
+     /* if (this._likeBtn.classList.contains('cards__like_active')) {
+        this._plusLike();
       } else {
-        this._handleRemoveLike(this._cardId);
-      }
+        this._nonOfLike();
+      }*/
     })
 
    /* this._likeBtn.addEventListener('click', () => {
@@ -83,15 +87,16 @@ export default class Card {
 }
 
 _cardLiked(){
-  this._likes.forEach((user) => {
-   if( this._userId === user._id){
-      this.addLikes();
-   }else{
+  this._likes.forEach(user => {
+   if( user._id === this._userId ){
+      this.addMoreLikes();
+   } else {
     this.deleteLikes();
    }
+   //console.log(user)
   })
 }
-addLikes(){
+addMoreLikes(){
   this._likeBtn.classList.add('cards__like_active')
 }
 deleteLikes(){
@@ -110,8 +115,9 @@ deleteLikes(){
 
   handleLikeCard(data) {
     this._likes = data.likes;
-    this._counter.textContent = this._likes.length;
     this._likeBtn.classList.toggle('cards__like_active');
+  //  this._counter.value = parseInt(this._counter.value) + 1;
+    this._counter.textContent = this._likes.length;
   }
 
    /*addLikes(){
@@ -129,9 +135,9 @@ deleteLikes(){
     }
   };*/
 
-  lengthOfLikes(cardElement){
-    this._counter.textContent = `${cardElement.likes.length}`
-  }
+  /*lengthOfLikes(card){
+    this._counter.textContent = `${card.likes.length}`
+  }*/
 
 /*_handleLikeClick(){
   this._likeBtn.classList.toggle('cards__like_active')

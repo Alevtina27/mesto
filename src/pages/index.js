@@ -71,29 +71,29 @@ const validatorAvatarForm = new FormValidator(formElementAvatar, settings)
 function createCard (data) {
   const newCard = new Card(
     data,
-    "#element-template",
-    handleCardClick,
+   "#element-template",
+   handleCardClick,
     handleFormResetCard,
-    handleAddLike,
-    handleRemoveLike,
+   //handleAddLike,
+   //handleRemoveLike,
     //handleLikesOfCard,
     userId,
-   /*() => {
-      api.addLikes(id)
-        .then((cardElement)=>{
-          newCard.addLike()
-          newCard.lengthOfLikes(cardElement)
+    () => {
+      api.addLikes(data._id)
+        .then((data)=>{
+          newCard.addMoreLikes();
+          newCard.handleLikeCard(data);
         }).catch(err=>console.log(err))
       },
 
       ()=>{
-        api.removeLikes(id)
-          .then((cardElement)=>{
-            newCard.removeLike()
-            newCard.lengthOfLikes(cardElement)
+        api.removeLikes(data._id)
+          .then((data)=>{
+           newCard.deleteLikes();
+            newCard.handleLikeCard(data)
           }).catch(err=>console.log(err))
-      }*/
-).generateCard();
+      }
+    ).generateCard();
   return newCard;
 };
 
@@ -170,9 +170,6 @@ const popupChangeAvatar = new PopupWithForm(popupAvatar,  (data) => {
 });
 
 /*open big picture */
-/**function handleCardClick(evt) {
-  popupOpenedImage.open(evt.target);
-}*/
 
 function handleCardClick(name, link) {
   popupOpenedImage.open(name, link);
@@ -194,7 +191,7 @@ function handleDeleteCard(id){
 }
 
 
-function handleAddLike(id){
+/*function handleAddLike(id){
   api.addLikes(id)
   .then((data)=>{
     newCard.handleLikeCard(data)
@@ -211,7 +208,7 @@ function handleRemoveLike(id){
   }).catch((err) => {
     console.log(`Ошибка: ${err}`);
 })
-}
+}*/
 
 /*function handleLikesOfCard(id){
   api.addLikes(id)
