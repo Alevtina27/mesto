@@ -42,7 +42,7 @@ export default class Card {
     this._cardLiked();
     this._holderOfCards();
     this._setEventListeners();
-
+    //this._handleLikeCard();
     return this._element;
   }
 
@@ -51,7 +51,7 @@ export default class Card {
   _setEventListeners() {
 
     this._deleteBtn.addEventListener("click", () => {
-      this._handleFormDeleteCard(this._cardId);
+      this._handleFormDeleteCard(this._cardId, this._element);
     });
     //this._deleteBtn.addEventListener("click", this._handleBinClick);
 
@@ -61,11 +61,11 @@ export default class Card {
 
    this._likeBtn.addEventListener('click', () => {
     //this._likeBtn.classList.contains('cards__like_active')
-   // this._likeBtn.classList.toggle('cards__like_active')
+    //this._likeBtn.classList.toggle('cards__like_active')
       if (this._likeBtn.classList.contains('cards__like_active')) {
-       this._handleAddLike(this._cardId);
+        this._handleRemoveLike(this._cardId);
       } else {
-       this._handleRemoveLike(this._cardId);
+        this._handleAddLike(this._cardId);
       }
     })
 
@@ -105,19 +105,27 @@ _cardLiked(){
   })
     }*/
 
-  handleLikeCard(card) {
+ /* handleLikeCard(card) {
     //this._likes = data.likes;
     this._likeBtn.classList.toggle('cards__like_active');
   //  this._counter.value = parseInt(this._counter.value) + 1;
     this._counter.textContent = `${card.likes.length}`;
-  }
+  }*/
 
-   /*addLikes(){
+  /*_handleLikeCard(likes) {
+  this._counter = this._element.querySelector(".cards__counter");
+  this._likeBtn.classList.toggle('cards__like_active');
+  if (likes.length === 0) {
+    this._counter.textContent = '';
+  } else {
+    this._counter.textContent = likes.length;
+  }
+  }*/
+   addLikes(){
     if (this._likeBtn.classList.contains('cards__like_active')){
       this._likeBtn.classList.add('cards__like_active');
           this._counter.textContent = `${this._likes.length}`;
     }
-
   };
 
   removeLikes(){
@@ -125,12 +133,14 @@ _cardLiked(){
       this._likeBtn.classList.remove('cards__like_active');
           this._counter.textContent = `${this._likes.length}`;
     }
-  };*/
+
+  };
 
   /*lengthOfLikes(data){
     this._likeBtn.classList.toggle('cards__like_active');
     this._counter.textContent = `${data.likes.length}`
-  }*/
+  } `${this._likes.length}`*/
+
 
 /*_handleLikeClick(){
   this._likeBtn.classList.toggle('cards__like_active')

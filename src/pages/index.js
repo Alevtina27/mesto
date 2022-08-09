@@ -75,24 +75,27 @@ function createCard (data) {
    handleCardClick: (name, link) => {
     popupOpenedImage.open(name, link);
   },
-   handleFormDeleteCard: (newCard) => {
+  /* handleFormDeleteCard: (card, cardId) => {
+    popupDeleteCard.open(card, cardId);
+  },*/
+  handleFormDeleteCard: (id) => {
     popupDeleteCard.open();
-    popupDeleteCard.confirmationHandler(() => {
-    api.deleteCard(newCard._id)
-    .then(() => {
+   // popupDeleteCard.confirmationHandler(() => {
+    api.deleteCard(id)
+    .then((newCard) => {
       newCard.deleteCard();
       popupDeleteCard.close();
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
   })
-    })
+   // })
   },
     handleAddLike: (id) => {
       api.addLikes(id)
-        .then((card)=>{
-         // newCard.addMoreLikes();
-          newCard.handleLikeCard(card);
+        .then(()=>{
+          newCard.addLikes();
+         // newCard.handleLikeCard(card);
         })
         .catch((err) => {
           console.log(`Ошибка: ${err}`);
@@ -100,9 +103,9 @@ function createCard (data) {
     },
    handleRemoveLike: (id) =>{
     api.removeLikes(id)
-   .then((card)=>{
-    // newCard.deleteLikes();
-     newCard.handleLikeCard(card)
+   .then(()=>{
+    newCard.removeLikes();
+    // newCard.handleLikeCard(card)
    })
    .catch((err) => {
      console.log(`Ошибка: ${err}`);
@@ -167,7 +170,18 @@ const popupEditInfo = new PopupWithForm(popupEdit, (data) => {
 
 const popupOpenedImage = new PopupWithImage(popupImage);
 
-const popupDeleteCard = new PopupWithConfirmation(popupRemoveCard);
+const popupDeleteCard = new PopupWithConfirmation(popupRemoveCard)
+  /* {
+    handleRemoveCard: (id) => {
+  api.deleteCard(id)
+    .then(() => {
+      newCard.deleteCard();
+      popupDeleteCard.close();
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+  })}
+});*/
 
 const popupChangeAvatar = new PopupWithForm(popupAvatar,  (data) => {
   popupChangeAvatar.loading(true);
@@ -184,6 +198,19 @@ const popupChangeAvatar = new PopupWithForm(popupAvatar,  (data) => {
         popupChangeAvatar.loading(false);
       });
 });
+
+/*function handleRemoveCard (newCard){
+  api.deleteCard(newCard._id)
+    .then(() => {
+      newCard.deleteCard();
+      popupDeleteCard.close();
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+  })
+    }*/
+
+
 
 /*open big picture */
 
