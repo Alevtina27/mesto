@@ -7,10 +7,9 @@ export default class PopupWithConfirmation extends Popup {
     this._formDelete = this._popup.querySelector(".popup__card-delete");
   }
 
-  resetCard(card){
-    this._card = card;
-    super.open();
-}
+  confirmationHandler(card){
+    this._card = card
+    }
 
   setEventListeners() {
     super.setEventListeners();

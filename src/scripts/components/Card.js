@@ -1,19 +1,18 @@
 export default class Card {
-  constructor(data, cardSelector, userId, handleCardClick, handleFormResetCard, like, dislike,handleLikesOfCard,handleAddLike, handleRemoveLike) {
+  constructor({data, cardSelector, userId, handleCardClick, handleFormDeleteCard, handleAddLike, handleRemoveLike}) {
     this._link = data.link;
     this._name = data.name;
    this._likes = data.likes;
-   this._cardId = data._id;
+  this._cardId = data._id;
+ // this._id = data._id;
     this._userId = userId;
     //this._userId = data._id;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    this._handleFormResetCard = handleFormResetCard;
+    this._handleFormDeleteCard = handleFormDeleteCard;
     //this._handleLikesOfCard = handleLikesOfCard;
-   // this._handleAddLike = handleAddLike;
-  // this._handleRemoveLike = handleRemoveLike;
-  this._plusLike = like;
-  this._nonOfLike = dislike;
+    this._handleAddLike = handleAddLike;
+   this._handleRemoveLike = handleRemoveLike;
     //this._handleLikesOfCard = handleLikesOfCard;
     this._ownerId = data.owner._id;
   }
@@ -51,20 +50,23 @@ export default class Card {
 
   _setEventListeners() {
 
+    this._deleteBtn.addEventListener("click", () => {
+      this._handleFormDeleteCard(this._cardId);
+    });
+    //this._deleteBtn.addEventListener("click", this._handleBinClick);
+
     this._photoElement.addEventListener("click", () => {
       this._handleCardClick(this._name, this._link);
     });
 
-    //this._deleteBtn.addEventListener("click", this._handleBinClick);
-
    this._likeBtn.addEventListener('click', () => {
-    this._likeBtn.classList.toggle('cards__like_active')
-   // this._counter.value = parseInt(this._counter.value) + 1;
-     /* if (this._likeBtn.classList.contains('cards__like_active')) {
-        this._plusLike();
+    //this._likeBtn.classList.contains('cards__like_active')
+   // this._likeBtn.classList.toggle('cards__like_active')
+      if (this._likeBtn.classList.contains('cards__like_active')) {
+       this._handleAddLike(this._cardId);
       } else {
-        this._nonOfLike();
-      }*/
+       this._handleRemoveLike(this._cardId);
+      }
     })
 
    /* this._likeBtn.addEventListener('click', () => {
@@ -74,34 +76,24 @@ export default class Card {
 
     })*/
 
-    this._deleteBtn.addEventListener("click", () => {
-      this._handleFormResetCard(this._cardId)
-    });
+
     //this._deleteBtn.addEventListener("click", this._deleteCard);
   }
 
   _holderOfCards(){
-    if(this._ownerId === this._userId){
+    if(this._userId !== this._ownerId){
       this._deleteBtn.remove();
     }
 }
 
 _cardLiked(){
-  this._likes.forEach(user => {
-   if( user._id === this._userId ){
-      this.addMoreLikes();
-   } else {
-    this.deleteLikes();
-   }
-   //console.log(user)
-  })
+  if (this._likes.some((user) => {
+    return this._userId === user._id;
+  })) {
+    this._likeBtn.classList.add('cards__like_active');
+  }
 }
-addMoreLikes(){
-  this._likeBtn.classList.add('cards__like_active')
-}
-deleteLikes(){
-  this._likeBtn.classList.remove('cards__like_active')
-}
+
 
   /*_handleLikesOfCard(){
     this._likes.some(user => {
@@ -113,11 +105,11 @@ deleteLikes(){
   })
     }*/
 
-  handleLikeCard(data) {
-    this._likes = data.likes;
+  handleLikeCard(card) {
+    //this._likes = data.likes;
     this._likeBtn.classList.toggle('cards__like_active');
   //  this._counter.value = parseInt(this._counter.value) + 1;
-    this._counter.textContent = this._likes.length;
+    this._counter.textContent = `${card.likes.length}`;
   }
 
    /*addLikes(){
@@ -135,8 +127,9 @@ deleteLikes(){
     }
   };*/
 
-  /*lengthOfLikes(card){
-    this._counter.textContent = `${card.likes.length}`
+  /*lengthOfLikes(data){
+    this._likeBtn.classList.toggle('cards__like_active');
+    this._counter.textContent = `${data.likes.length}`
   }*/
 
 /*_handleLikeClick(){
@@ -147,19 +140,18 @@ deleteLikes(){
     this._likeBtn.classList.toggle("cards__like_active");
   }*/
 
-  /*_deleteCard() {
+ _deleteCard() {
     this._element.remove();
     this._element = null;
-  }*/
-
-  async _deleteCard(evt){
+  }
+  /*async _deleteCard(evt){
     try{
         evt.preventDefault();
-        await this._handleFormResetCard(this._cardId);
+        await this._handleFormResetCard(this._id);
         this._element.remove();
     }
     catch(error){
         console.log(error);
     }
-}
+}*/
 }

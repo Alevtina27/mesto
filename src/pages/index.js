@@ -69,31 +69,47 @@ const validatorAvatarForm = new FormValidator(formElementAvatar, settings)
 
 /**create cards */
 function createCard (data) {
-  const newCard = new Card(
-    data,
-   "#element-template",
-   handleCardClick,
-    handleFormResetCard,
-   //handleAddLike,
-   //handleRemoveLike,
-    //handleLikesOfCard,
-    userId,
-    () => {
-      api.addLikes(data._id)
-        .then((data)=>{
-          newCard.addMoreLikes();
-          newCard.handleLikeCard(data);
-        }).catch(err=>console.log(err))
-      },
-
-      ()=>{
-        api.removeLikes(data._id)
-          .then((data)=>{
-           newCard.deleteLikes();
-            newCard.handleLikeCard(data)
-          }).catch(err=>console.log(err))
-      }
-    ).generateCard();
+  const newCard = new Card({
+    data: data,
+   cardSelector: "#element-template",
+   handleCardClick: (name, link) => {
+    popupOpenedImage.open(name, link);
+  },
+   handleFormDeleteCard: (newCard) => {
+    popupDeleteCard.open();
+    popupDeleteCard.confirmationHandler(() => {
+    api.deleteCard(newCard._id)
+    .then(() => {
+      newCard.deleteCard();
+      popupDeleteCard.close();
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+  })
+    })
+  },
+    handleAddLike: (id) => {
+      api.addLikes(id)
+        .then((card)=>{
+         // newCard.addMoreLikes();
+          newCard.handleLikeCard(card);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+      })
+    },
+   handleRemoveLike: (id) =>{
+    api.removeLikes(id)
+   .then((card)=>{
+    // newCard.deleteLikes();
+     newCard.handleLikeCard(card)
+   })
+   .catch((err) => {
+     console.log(`Ошибка: ${err}`);
+ })
+},
+   userId: userId,
+  }).generateCard();
   return newCard;
 };
 
@@ -151,7 +167,7 @@ const popupEditInfo = new PopupWithForm(popupEdit, (data) => {
 
 const popupOpenedImage = new PopupWithImage(popupImage);
 
-const popupDeleteCard = new PopupWithConfirmation(popupRemoveCard, handleDeleteCard);
+const popupDeleteCard = new PopupWithConfirmation(popupRemoveCard);
 
 const popupChangeAvatar = new PopupWithForm(popupAvatar,  (data) => {
   popupChangeAvatar.loading(true);
@@ -171,15 +187,26 @@ const popupChangeAvatar = new PopupWithForm(popupAvatar,  (data) => {
 
 /*open big picture */
 
-function handleCardClick(name, link) {
+/*const handleCardClick = (name, link) => {
   popupOpenedImage.open(name, link);
-}
+}*/
 
-function handleFormResetCard(card){
-  popupDeleteCard.resetCard(card);
-}
+/*const handleFormDeleteCard = (newCard) => {
+  popupDeleteCard.open();
+  popupDeleteCard.handleRemoveCard(() => {
+  api.deleteCard(newCard._id)
+  .then(() => {
+   element.remove();
+    element = null;
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+})
+  })
+}*/
 
-function handleDeleteCard(id){
+/*function handleDeleteCard(id){
+  popupDeleteCard.open();
     api.removeCard(id)
     .then(() => {
       newCard.deleteCard();
@@ -188,13 +215,14 @@ function handleDeleteCard(id){
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
   })
-}
+}*/
 
 
 /*function handleAddLike(id){
   api.addLikes(id)
   .then((data)=>{
-    newCard.handleLikeCard(data)
+   // newCard.addMoreLikes();
+   // newCard.handleLikeCard(data);
   })
   .catch((err) => {
     console.log(`Ошибка: ${err}`);
@@ -204,7 +232,8 @@ function handleDeleteCard(id){
 function handleRemoveLike(id){
   api.removeLikes(id)
   .then((data)=>{
-    newCard.handleLikeCard(data)
+   // newCard.deleteLikes();
+   //  newCard.handleLikeCard(data)
   }).catch((err) => {
     console.log(`Ошибка: ${err}`);
 })

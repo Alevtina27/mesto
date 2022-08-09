@@ -85,7 +85,7 @@ changeAvatar(data) {
     .then(this._getJsonOrError);
 }
 
-removeCard(id){
+deleteCard(id){
   return fetch(`${this._url}/cards/${id}`, {
       method: 'DELETE',
       headers: this._token,
