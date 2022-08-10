@@ -16,6 +16,7 @@
 3. Java Script
 4. Webpack
 5. ООП
+6. API
 ---
 **Реализация**:
 *Flexbox вёрстка*,
