@@ -9,8 +9,16 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alevtina27/mesto.git"
+  },
+  "author": "Alevtina Osadchaya",
   "license": "ISC",
+  "bugs":{
+    "url": "https://github.com/Alevtina27/mesto.issues"
+  },
+  "homepage": "https://github.com/Alevtina27/mesto#readme",
   "devDependencies": {
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
